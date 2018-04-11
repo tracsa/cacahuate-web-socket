@@ -50,4 +50,7 @@ Just run in **another terminal**:
 
    node cacahuate-web-socket/emit_log.js
 
+And you will see a "eh" message declared in emit_log.js in your app-browser
+You can write and send a message in the chat too.
+
 END
