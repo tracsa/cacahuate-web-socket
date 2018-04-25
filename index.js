@@ -1,6 +1,28 @@
 var app = require('express')();
-var http = require('http').Server(app);
+var http = require('http').createServer(handler);
 var io = require('socket.io')(http);
+
+let fs     = require('fs');
+let log    = require('./lib/log.js');
+let SocketBag = require('./lib/socket_bag.js');
+
+// Create socket container
+let sb = new SocketBag();
+
+//log.info(`Started listening websocket on port ${config.socket.port}`);
+//app.listen(config.socket.port);
+
+function handler (req, res) {
+  fs.readFile(__dirname + '/public/index.html', function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
 
 var amqp = require('amqplib/callback_api');
 
@@ -22,9 +44,11 @@ amqp.connect('amqp://localhost', function(err, conn) {
   });
 });
 
+/*
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
+*/
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
