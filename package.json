@@ -4,7 +4,7 @@
   "description": "my first socket.io app",
   "dependencies": {
     "amqplib": "^0.5.2",
-    "express": "^4.15.2",
+    "express": "^4.16.3",
     "socket.io": "^2.1.0"
   }
 }
